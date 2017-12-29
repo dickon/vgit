@@ -1,27 +1,33 @@
 import { Repository, Commit } from "nodegit";
+import * as express from "express";
 
-async function recurse(rev: Commit, depth: number ) {
+interface StringListMap { [s: string]: string[] };
+
+async function recurse(rev: Commit, depth: number, network:StringListMap ) {
     if (depth == 0) return;
-    console.log("at "+rev+" depth "+depth)
     var parents = await rev.getParents(10);
     for (let parent of parents) {
-        console.log(`${rev}->${parent}`);
-        recurse(parent, depth - 1);
+        await recurse(parent, depth - 1, network);
+        console.log("parent "+parent);
+        let h = rev.id()+"";
+        if (network[h] === undefined) {
+            network[h] = [];
+        }    
+        network[h].push(parent+"");
     }
+
 }
 
 async function read() {
+    let network:StringListMap = {};
     let repo = await Repository.open("../alsatian");
     let commit = await repo.getBranchCommit("master");
     let message =  await commit.message();
     let parents = await commit.getParents(2);
-    console.log("message "+message);
-    console.log("|parents| = "+parents.length);
     for (let parent of parents) {
         console.log("parent "+parent);
-        recurse(parent, 10)
+        await recurse(parent, 10, network)
     }
-    console.log("Done");
 }
 
 read();
