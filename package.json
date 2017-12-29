@@ -4,8 +4,16 @@
   "description": "Visualise git history",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "alsatian \"./*.test.js\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "alsatian": "^2.0.0",
+    "chair": "0.0.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "nodegit": "^0.20.3"
+  }
 }
