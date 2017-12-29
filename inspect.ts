@@ -41,12 +41,13 @@ async function read() {
         let network : StringListMap = {}
         var head = await repo.getBranchCommit(req.params.branch)
         await recurse(head, 10, network)
-        res.json({connections: network})
+        res.json({connections: network, head: String(head), reponame: "alsatian"})
     }
 
     let app = express()
     app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'index.html')))
     app.get('/scripts/draw.js', (req, res) => res.sendFile(path.resolve(__dirname, 'draw.js')))
+    app.get('/scripts/vis.js', (req, res) => res.sendFile(path.resolve(__dirname, 'node_modules', 'vis', 'dist', 'vis.js')))
     app.get('/api1/heads/:branch', wrap(getBranch))
     app.get('/api1/graph/:branch', wrap(getGraph))
     let server = app.listen(0, () => { 

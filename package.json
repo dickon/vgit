@@ -20,9 +20,12 @@
     "@types/express": "^4.11.0",
     "@types/nodegit": "^0.18.5",
     "@types/opn": "^5.1.0",
+    "@types/vis": "^4.21.0",
     "express": "^4.16.2",
     "nodegit": "^0.20.3",
     "openurl": "^1.1.1",
-    "opn": "^5.1.0"
+    "opn": "^5.1.0",
+    "vis": "^4.21.0",
+    "vivagraphjs": "^0.10.0"
   }
 }
