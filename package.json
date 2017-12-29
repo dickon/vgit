@@ -14,6 +14,8 @@
     "typescript": "^2.6.2"
   },
   "dependencies": {
+    "@types/async": "^2.0.46",
+    "@types/nodegit": "^0.18.5",
     "nodegit": "^0.20.3"
   }
 }
