@@ -33,15 +33,13 @@ async function read() {
     let message =  await commit.message()
     let parents = await commit.getParents(2)
     for (let parent of parents) {
-        console.log("parent "+parent)
         await recurse(parent, 10, network)
     }
 
     async function getBranch(req: express.Request, res: express.Response) {
         console.log(`branch ${req.params.branch}`);
         var commit = await repo.getBranchCommit(req.params.branch)
-        
-        return res.json({commit:commit.id()+""})
+        res.json({id: String(commit)})
     }
 
     let app = express()
